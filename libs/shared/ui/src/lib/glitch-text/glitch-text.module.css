@@ -1,0 +1,10 @@
+.glitchText {
+  display: inline-block;
+  position: relative;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glitchText * {
+    animation: none !important;
+  }
+}

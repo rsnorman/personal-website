@@ -1,0 +1,12 @@
+{
+  "name": "@personal-website/web",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "@personal-website/shared-ui": "workspace:*",
+    "@personal-website/shared-util": "workspace:*",
+    "next": "~16.0.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  }
+}

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import styles from './nav.module.css';
@@ -19,6 +19,24 @@ export interface NavProps {
 export function Nav({ items, className }: NavProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
+  const hamburgerRef = useRef<HTMLButtonElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+
+    closeRef.current?.focus();
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setMobileOpen(false);
+        hamburgerRef.current?.focus();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [mobileOpen]);
 
   return (
     <>
@@ -51,6 +69,7 @@ export function Nav({ items, className }: NavProps) {
             ))}
           </ul>
           <button
+            ref={hamburgerRef}
             className={styles.hamburger}
             onClick={() => setMobileOpen(true)}
             aria-label="Open menu"
@@ -68,8 +87,12 @@ export function Nav({ items, className }: NavProps) {
         aria-modal={mobileOpen}
       >
         <button
+          ref={closeRef}
           className={styles.closeButton}
-          onClick={() => setMobileOpen(false)}
+          onClick={() => {
+            setMobileOpen(false);
+            hamburgerRef.current?.focus();
+          }}
           aria-label="Close menu"
         >
           [x]

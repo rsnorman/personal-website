@@ -31,3 +31,5 @@ out-tsc/
 # Misc
 *.log
 *.tmp
+.vercel
+.env*.local

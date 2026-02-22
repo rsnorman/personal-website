@@ -1,6 +1,7 @@
 import { education } from '@personal-website/shared-util';
 import { SectionHeading } from '@personal-website/shared-ui';
 import type { Metadata } from 'next';
+import styles from './education.module.css';
 
 export const metadata: Metadata = {
   title: 'Education',
@@ -12,78 +13,20 @@ export default function EducationPage() {
   const sorted = [...education].sort((a, b) => a.order - b.order);
 
   return (
-    <main
-      id="main-content"
-      style={{ maxWidth: '48rem', margin: '0 auto', padding: '6rem 2rem 4rem' }}
-    >
+    <main id="main-content" className={styles.page}>
       <SectionHeading decorator="$">Education</SectionHeading>
 
-      <div
-        style={{
-          marginTop: '2.5rem',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '2rem',
-        }}
-      >
+      <div className={styles.list}>
         {sorted.map((edu) => (
-          <article
-            key={edu.id}
-            style={{
-              borderLeft: '2px solid var(--color-border)',
-              paddingLeft: '1.5rem',
-            }}
-          >
-            <h3
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: '1.25rem',
-                color: 'var(--color-text-primary)',
-                marginBottom: '0.25rem',
-              }}
-            >
-              {edu.institution}
-            </h3>
-            <p
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: '0.875rem',
-                color: 'var(--color-accent)',
-                marginBottom: '0.25rem',
-              }}
-            >
-              {edu.degree}
-            </p>
-            <p
-              style={{
-                fontSize: '0.8125rem',
-                color: 'var(--color-text-secondary)',
-              }}
-            >
-              {edu.location}
-            </p>
+          <article key={edu.id} className={styles.card}>
+            <h3 className={styles.institution}>{edu.institution}</h3>
+            <p className={styles.degree}>{edu.degree}</p>
+            <p className={styles.location}>{edu.location}</p>
             {edu.activities && edu.activities.length > 0 && (
-              <ul
-                style={{ listStyle: 'none', padding: 0, marginTop: '0.75rem' }}
-              >
+              <ul className={styles.activities}>
                 {edu.activities.map((activity, i) => (
-                  <li
-                    key={i}
-                    style={{
-                      fontSize: '0.875rem',
-                      color: 'var(--color-text-secondary)',
-                      paddingLeft: '1rem',
-                      position: 'relative',
-                    }}
-                  >
-                    <span
-                      aria-hidden="true"
-                      style={{
-                        position: 'absolute',
-                        left: 0,
-                        color: 'var(--color-accent)',
-                      }}
-                    >
+                  <li key={i} className={styles.activity}>
+                    <span aria-hidden="true" className={styles.activityDash}>
                       —
                     </span>
                     {activity}

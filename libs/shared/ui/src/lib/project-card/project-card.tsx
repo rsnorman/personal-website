@@ -1,5 +1,6 @@
 import type { Project } from '@personal-website/shared-util';
 import React from 'react';
+import styles from './project-card.module.css';
 
 export interface ProjectCardProps {
   project: Project;
@@ -9,76 +10,27 @@ export interface ProjectCardProps {
 export function ProjectCard({ project, className }: ProjectCardProps) {
   return (
     <article
-      className={className}
-      style={{
-        border: '1px solid var(--color-border)',
-        padding: '1.5rem',
-        borderRadius: '2px',
-        transition: 'border-color 0.2s ease',
-        backgroundColor: 'var(--color-surface)',
-      }}
+      className={`${styles.card} ${project.featured ? styles.featured : ''} ${className ?? ''}`}
     >
-      <h3
-        style={{
-          fontFamily: 'var(--font-display)',
-          fontSize: '1.125rem',
-          color: 'var(--color-text-primary)',
-          marginBottom: '0.5rem',
-        }}
-      >
-        {project.name}
-      </h3>
-      <p
-        style={{
-          fontSize: '0.875rem',
-          color: 'var(--color-text-secondary)',
-          marginBottom: '1rem',
-          lineHeight: 1.6,
-          maxWidth: '100%',
-        }}
-      >
-        {project.description}
-      </p>
+      <h3 className={styles.name}>{project.name}</h3>
+      <p className={styles.description}>{project.description}</p>
 
-      <div
-        style={{
-          display: 'flex',
-          gap: '0.5rem',
-          flexWrap: 'wrap',
-          marginBottom: '1rem',
-        }}
-      >
+      <div className={styles.technologies}>
         {project.technologies.map((tech) => (
-          <span
-            key={tech}
-            style={{
-              fontSize: '0.6875rem',
-              fontFamily: 'var(--font-display)',
-              color: 'var(--color-accent)',
-              border: '1px solid var(--color-border)',
-              padding: '0.125rem 0.5rem',
-              borderRadius: '2px',
-            }}
-          >
+          <span key={tech} className={styles.tech}>
             {tech}
           </span>
         ))}
       </div>
 
-      <div style={{ display: 'flex', gap: '1rem' }}>
+      <div className={styles.links}>
         {project.githubUrl && (
           <a
             href={project.githubUrl}
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`${project.name} on GitHub`}
-            style={{
-              fontSize: '0.8125rem',
-              fontFamily: 'var(--font-display)',
-              color: 'var(--color-text-secondary)',
-              textDecoration: 'none',
-              transition: 'color 0.2s ease',
-            }}
+            className={styles.link}
           >
             {'[github]'}
           </a>
@@ -89,13 +41,7 @@ export function ProjectCard({ project, className }: ProjectCardProps) {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`${project.name} live demo`}
-            style={{
-              fontSize: '0.8125rem',
-              fontFamily: 'var(--font-display)',
-              color: 'var(--color-text-secondary)',
-              textDecoration: 'none',
-              transition: 'color 0.2s ease',
-            }}
+            className={styles.link}
           >
             {'[live]'}
           </a>

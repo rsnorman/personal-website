@@ -1,5 +1,6 @@
 import type { CareerExperience } from '@personal-website/shared-util';
 import React from 'react';
+import styles from './experience-card.module.css';
 
 export interface ExperienceCardProps {
   experience: CareerExperience;
@@ -12,73 +13,19 @@ export function ExperienceCard({ experience, className }: ExperienceCardProps) {
   );
 
   return (
-    <article
-      className={className}
-      style={{
-        borderLeft: '2px solid var(--color-border)',
-        paddingLeft: '1.5rem',
-        marginBottom: '2.5rem',
-      }}
-    >
-      <h3
-        style={{
-          fontFamily: 'var(--font-display)',
-          fontSize: 'clamp(1.25rem, 2vw, 1.5rem)',
-          color: 'var(--color-text-primary)',
-          marginBottom: '0.25rem',
-        }}
-      >
-        {experience.company}
-      </h3>
-      <p
-        style={{
-          fontSize: '0.875rem',
-          color: 'var(--color-text-secondary)',
-          marginBottom: '1rem',
-          maxWidth: '100%',
-        }}
-      >
-        {experience.companyDescription}
-      </p>
+    <article className={`${styles.card} ${className ?? ''}`}>
+      <h3 className={styles.company}>{experience.company}</h3>
+      <p className={styles.companyDescription}>{experience.companyDescription}</p>
 
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '0.5rem',
-          marginBottom: '1rem',
-        }}
-      >
+      <div className={styles.roles}>
         {sortedRoles.map((role, i) => (
-          <div
-            key={i}
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'baseline',
-              flexWrap: 'wrap',
-              gap: '0.5rem',
-            }}
-          >
+          <div key={i} className={styles.role}>
             <span
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: '0.875rem',
-                color:
-                  i === 0
-                    ? 'var(--color-accent)'
-                    : 'var(--color-text-secondary)',
-              }}
+              className={`${styles.roleTitle} ${i === 0 ? styles.roleTitleCurrent : ''}`}
             >
               {role.title}
             </span>
-            <span
-              style={{
-                fontSize: '0.75rem',
-                color: 'var(--color-text-secondary)',
-                fontFamily: 'var(--font-display)',
-              }}
-            >
+            <span className={styles.roleDate}>
               {role.startYear} — {role.endYear ?? 'Present'}
             </span>
           </div>
@@ -86,34 +33,10 @@ export function ExperienceCard({ experience, className }: ExperienceCardProps) {
       </div>
 
       {experience.highlights.length > 0 && (
-        <ul
-          style={{
-            listStyle: 'none',
-            padding: 0,
-            margin: 0,
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '0.5rem',
-          }}
-        >
+        <ul className={styles.highlights}>
           {experience.highlights.map((highlight, i) => (
-            <li
-              key={i}
-              style={{
-                fontSize: '0.875rem',
-                color: 'var(--color-text-secondary)',
-                paddingLeft: '1rem',
-                position: 'relative',
-              }}
-            >
-              <span
-                aria-hidden="true"
-                style={{
-                  position: 'absolute',
-                  left: 0,
-                  color: 'var(--color-accent)',
-                }}
-              >
+            <li key={i} className={styles.highlight}>
+              <span aria-hidden="true" className={styles.highlightDash}>
                 —
               </span>
               {highlight}

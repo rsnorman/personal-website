@@ -1,0 +1,9 @@
+.page {
+  max-width: 48rem;
+  margin: 0 auto;
+  padding: 6rem 2rem 4rem;
+}
+
+.content {
+  margin-top: 2.5rem;
+}

@@ -11,6 +11,11 @@
   --font-display: var(--font-space-mono), ui-monospace, monospace;
   --font-body: var(--font-jetbrains-mono), ui-monospace, monospace;
 
+  --glow-accent: 0 0 8px rgba(90, 143, 143, 0.4);
+  --glow-cyan: 0 0 12px rgba(0, 255, 255, 0.35);
+  --transition-fast: 0.15s ease;
+  --transition-base: 0.25s ease;
+
   color-scheme: dark;
 }
 

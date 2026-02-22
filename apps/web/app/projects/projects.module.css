@@ -1,0 +1,12 @@
+.page {
+  max-width: 48rem;
+  margin: 0 auto;
+  padding: 6rem 2rem 4rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}

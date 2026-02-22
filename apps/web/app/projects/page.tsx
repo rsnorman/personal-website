@@ -1,6 +1,7 @@
 import { projects } from '@personal-website/shared-util';
 import { SectionHeading, ProjectCard } from '@personal-website/shared-ui';
 import type { Metadata } from 'next';
+import styles from './projects.module.css';
 
 export const metadata: Metadata = {
   title: 'Projects',
@@ -13,20 +14,10 @@ export default function ProjectsPage() {
   const other = projects.filter((p) => !p.featured);
 
   return (
-    <main
-      id="main-content"
-      style={{ maxWidth: '48rem', margin: '0 auto', padding: '6rem 2rem 4rem' }}
-    >
+    <main id="main-content" className={styles.page}>
       <SectionHeading decorator=">">Projects</SectionHeading>
 
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-          gap: '1.5rem',
-          marginTop: '2.5rem',
-        }}
-      >
+      <div className={styles.grid}>
         {featured.map((project) => (
           <ProjectCard key={project.id} project={project} />
         ))}

@@ -1,0 +1,82 @@
+.card {
+  border-left: 2px solid var(--color-border);
+  padding-left: 1.5rem;
+  margin-bottom: 2.5rem;
+  transition: border-color var(--transition-base);
+}
+
+.card:hover {
+  border-left-color: var(--color-accent);
+}
+
+.company {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2vw, 1.5rem);
+  color: var(--color-text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.companyDescription {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 1rem;
+  max-width: 100%;
+}
+
+.roles {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.role {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.roleTitle {
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+}
+
+.roleTitleCurrent {
+  color: var(--color-accent);
+  transition: text-shadow var(--transition-base);
+}
+
+.card:hover .roleTitleCurrent {
+  text-shadow: var(--glow-accent);
+}
+
+.roleDate {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  font-family: var(--font-display);
+}
+
+.highlights {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.highlight {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  padding-left: 1rem;
+  position: relative;
+}
+
+.highlightDash {
+  position: absolute;
+  left: 0;
+  color: var(--color-accent);
+}

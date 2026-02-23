@@ -1,5 +1,8 @@
+'use client';
+
 import type { SpotifyTrack } from '@personal-website/shared-util';
 import { MediaImage } from '../media-image/media-image';
+import { useRowGlitch } from '../row-glitch/use-row-glitch';
 import styles from './track-list.module.css';
 
 export interface TrackListProps {
@@ -7,8 +10,10 @@ export interface TrackListProps {
 }
 
 export function TrackList({ tracks }: TrackListProps) {
+  const listRef = useRowGlitch();
+
   return (
-    <div className={styles.list}>
+    <div ref={listRef} className={styles.list}>
       {tracks.map((track) => (
         <a
           key={`${track.rank}-${track.name}`}

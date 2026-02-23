@@ -18,3 +18,21 @@ export type { ExperienceCardProps } from './lib/experience-card/experience-card'
 
 export { ProjectCard } from './lib/project-card/project-card';
 export type { ProjectCardProps } from './lib/project-card/project-card';
+
+export { MediaImage } from './lib/media-image/media-image';
+export type { MediaImageProps } from './lib/media-image/media-image';
+
+export { MediaCategoryTabs } from './lib/media-category-tabs/media-category-tabs';
+export type {
+  MediaCategoryTabsProps,
+  MediaCategory,
+} from './lib/media-category-tabs/media-category-tabs';
+
+export { TimeRangeToggle } from './lib/time-range-toggle/time-range-toggle';
+export type { TimeRangeToggleProps } from './lib/time-range-toggle/time-range-toggle';
+
+export { TrackList } from './lib/track-list/track-list';
+export type { TrackListProps } from './lib/track-list/track-list';
+
+export { ArtistList } from './lib/artist-list/artist-list';
+export type { ArtistListProps } from './lib/artist-list/artist-list';

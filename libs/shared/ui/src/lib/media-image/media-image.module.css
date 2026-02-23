@@ -1,0 +1,62 @@
+.wrapper {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 2px;
+  overflow: hidden;
+  transition: box-shadow var(--transition-base);
+}
+
+.wrapper:hover {
+  box-shadow: 0 0 12px color-mix(in srgb, var(--glow-color) 50%, transparent);
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+
+.glitchR,
+.glitchB {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-fast);
+  z-index: 2;
+}
+
+.glitchR {
+  mix-blend-mode: screen;
+  transform: translate(2px, -1px);
+  filter: hue-rotate(90deg) saturate(2);
+}
+
+.glitchB {
+  mix-blend-mode: screen;
+  transform: translate(-2px, 1px);
+  filter: hue-rotate(-90deg) saturate(2);
+}
+
+.wrapper:hover .glitchR,
+.wrapper:hover .glitchB {
+  opacity: 0.5;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glitchR,
+  .glitchB {
+    display: none;
+  }
+
+  .wrapper:hover {
+    box-shadow: 0 0 12px color-mix(in srgb, var(--glow-color) 50%, transparent);
+  }
+}

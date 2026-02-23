@@ -15,3 +15,11 @@ export { socialLinks } from './lib/content/social';
 export { experiences } from './lib/content/experience';
 export { projects } from './lib/content/projects';
 export { education } from './lib/content/education';
+
+export type {
+  SpotifyTimeRange,
+  SpotifyTrack,
+  SpotifyArtist,
+  SpotifyTopTracksResponse,
+  SpotifyTopArtistsResponse,
+} from './lib/content/spotify';

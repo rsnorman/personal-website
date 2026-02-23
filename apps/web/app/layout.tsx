@@ -7,6 +7,7 @@ const navItems = [
   { label: 'Experience', href: '/experience', decorator: '//' },
   { label: 'Projects', href: '/projects', decorator: '>' },
   { label: 'Education', href: '/education', decorator: '$' },
+  { label: 'Media', href: '/media', decorator: '~' },
 ];
 
 const spaceMono = Space_Mono({

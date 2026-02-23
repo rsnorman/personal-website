@@ -1,0 +1,82 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--color-border);
+  text-decoration: none;
+  color: inherit;
+  transition: background-color var(--transition-fast);
+}
+
+.row:first-child {
+  border-top: 1px solid var(--color-border);
+}
+
+.row:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.rank {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  min-width: 1.5rem;
+  text-align: right;
+}
+
+.info {
+  flex: 1;
+  min-width: 0;
+}
+
+.name {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.meta {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 0.125rem;
+}
+
+.link {
+  font-family: var(--font-display);
+  font-size: 0.6875rem;
+  color: var(--color-text-secondary);
+  transition: color var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.row:hover .link {
+  color: var(--color-accent);
+}
+
+.row:hover [data-glow-color] {
+  box-shadow: 0 0 12px color-mix(in srgb, var(--glow-color) 50%, transparent);
+}
+
+.row:hover [data-glow-color] > [aria-hidden='true'] {
+  opacity: 0.5;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .row:hover [data-glow-color] > [aria-hidden='true'] {
+    opacity: 0;
+  }
+}

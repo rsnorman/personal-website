@@ -36,3 +36,6 @@ export type { TrackListProps } from './lib/track-list/track-list';
 
 export { ArtistList } from './lib/artist-list/artist-list';
 export type { ArtistListProps } from './lib/artist-list/artist-list';
+
+export { useRowGlitch } from './lib/row-glitch/use-row-glitch';
+export type { UseRowGlitchOptions } from './lib/row-glitch/use-row-glitch';

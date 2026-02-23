@@ -1,5 +1,8 @@
+'use client';
+
 import type { SpotifyArtist } from '@personal-website/shared-util';
 import { MediaImage } from '../media-image/media-image';
+import { useRowGlitch } from '../row-glitch/use-row-glitch';
 import styles from './artist-list.module.css';
 
 export interface ArtistListProps {
@@ -7,8 +10,10 @@ export interface ArtistListProps {
 }
 
 export function ArtistList({ artists }: ArtistListProps) {
+  const listRef = useRowGlitch();
+
   return (
-    <div className={styles.list}>
+    <div ref={listRef} className={styles.list}>
       {artists.map((artist) => (
         <a
           key={`${artist.rank}-${artist.name}`}

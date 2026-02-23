@@ -67,11 +67,16 @@ const server = http.createServer(async (req, res) => {
     '<h1>Done!</h1><p>Refresh token printed in your terminal. You can close this tab.</p>'
   );
 
+  const mask = (value) => {
+    if (value.length <= 8) return '*'.repeat(value.length);
+    return value.slice(0, 4) + '*'.repeat(value.length - 8) + value.slice(-4);
+  };
+
   console.log('\n  ===================================');
   console.log('  Your Spotify credentials:');
   console.log('  ===================================\n');
-  console.log(`  SPOTIFY_CLIENT_ID=${CLIENT_ID}`);
-  console.log(`  SPOTIFY_CLIENT_SECRET=${CLIENT_SECRET}`);
+  console.log(`  SPOTIFY_CLIENT_ID=${mask(CLIENT_ID)}`);
+  console.log(`  SPOTIFY_CLIENT_SECRET=${mask(CLIENT_SECRET)}`);
   console.log(`  SPOTIFY_REFRESH_TOKEN=${data.refresh_token}`);
   console.log('\n  Add these to .env.local and Vercel.\n');
 

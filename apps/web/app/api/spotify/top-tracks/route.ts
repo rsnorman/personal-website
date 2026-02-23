@@ -3,15 +3,32 @@ import type {
   SpotifyTimeRange,
   SpotifyTopTracksResponse,
 } from '@personal-website/shared-util';
+import { VALID_RANGES } from '@personal-website/shared-util';
 import { getAccessToken } from '../lib/auth';
 import { getCached, setCache } from '../lib/cache';
 import { extractDominantColor } from '../lib/color';
 
-const VALID_RANGES: SpotifyTimeRange[] = [
-  'short_term',
-  'medium_term',
-  'long_term',
-];
+interface RawSpotifyImage {
+  url: string;
+  width: number;
+  height: number;
+}
+
+interface RawSpotifyArtistRef {
+  name: string;
+}
+
+interface RawSpotifyTrack {
+  name: string;
+  artists: RawSpotifyArtistRef[];
+  album: {
+    name: string;
+    images: RawSpotifyImage[];
+  };
+  external_urls: {
+    spotify: string;
+  };
+}
 
 export async function GET(request: NextRequest) {
   const range = (request.nextUrl.searchParams.get('range') ??
@@ -48,12 +65,9 @@ export async function GET(request: NextRequest) {
     const data = await response.json();
 
     const tracks = await Promise.all(
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      data.items.map(async (item: any, index: number) => {
+      data.items.map(async (item: RawSpotifyTrack, index: number) => {
         const albumArt =
-          item.album.images.find(
-            (img: { width: number }) => img.width === 300
-          )?.url ??
+          item.album.images.find((img) => img.width === 300)?.url ??
           item.album.images[1]?.url ??
           item.album.images[0]?.url ??
           '';
@@ -65,7 +79,7 @@ export async function GET(request: NextRequest) {
         return {
           rank: index + 1,
           name: item.name,
-          artist: item.artists.map((a: { name: string }) => a.name).join(', '),
+          artist: item.artists.map((a) => a.name).join(', '),
           album: item.album.name,
           albumArt,
           dominantColor,
@@ -82,7 +96,20 @@ export async function GET(request: NextRequest) {
 
     setCache(cacheKey, result);
     return NextResponse.json(result);
-  } catch {
+  } catch (err) {
+    const message = err instanceof Error ? err.message : '';
+    if (message === 'Missing Spotify environment variables') {
+      return NextResponse.json(
+        { error: 'Spotify integration is not configured' },
+        { status: 503 }
+      );
+    }
+    if (message === 'Spotify authentication failed') {
+      return NextResponse.json(
+        { error: 'Spotify authentication failed' },
+        { status: 401 }
+      );
+    }
     return NextResponse.json(
       { error: 'Failed to fetch Spotify data' },
       { status: 500 }

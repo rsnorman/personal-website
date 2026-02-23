@@ -11,6 +11,14 @@ const nextConfig = {
     '@personal-website/shared-ui',
     '@personal-website/shared-util',
   ],
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'i.scdn.co',
+      },
+    ],
+  },
 };
 
 const plugins = [

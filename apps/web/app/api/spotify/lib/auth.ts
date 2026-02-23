@@ -1,18 +1,31 @@
 const TOKEN_ENDPOINT = 'https://accounts.spotify.com/api/token';
 
 let cachedToken: { accessToken: string; expiresAt: number } | null = null;
+let inflightRefresh: Promise<string> | null = null;
 
 export async function getAccessToken(): Promise<string> {
+  if (cachedToken && Date.now() < cachedToken.expiresAt) {
+    return cachedToken.accessToken;
+  }
+
+  if (inflightRefresh) {
+    return inflightRefresh;
+  }
+
+  inflightRefresh = refreshAccessToken().finally(() => {
+    inflightRefresh = null;
+  });
+
+  return inflightRefresh;
+}
+
+async function refreshAccessToken(): Promise<string> {
   const clientId = process.env.SPOTIFY_CLIENT_ID;
   const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
   const refreshToken = process.env.SPOTIFY_REFRESH_TOKEN;
 
   if (!clientId || !clientSecret || !refreshToken) {
     throw new Error('Missing Spotify environment variables');
-  }
-
-  if (cachedToken && Date.now() < cachedToken.expiresAt) {
-    return cachedToken.accessToken;
   }
 
   const response = await fetch(TOKEN_ENDPOINT, {

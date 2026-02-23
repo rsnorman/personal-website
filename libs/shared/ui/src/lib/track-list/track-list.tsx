@@ -16,7 +16,7 @@ export function TrackList({ tracks }: TrackListProps) {
           target="_blank"
           rel="noopener noreferrer"
           className={styles.row}
-          aria-label={`${track.name} by ${track.artist}`}
+          aria-label={`${track.name} by ${track.artist} on Spotify (opens in new tab)`}
         >
           <span className={styles.rank}>
             {String(track.rank).padStart(2, '0')}

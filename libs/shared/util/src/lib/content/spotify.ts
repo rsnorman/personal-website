@@ -1,5 +1,11 @@
 export type SpotifyTimeRange = 'short_term' | 'medium_term' | 'long_term';
 
+export const VALID_RANGES: SpotifyTimeRange[] = [
+  'short_term',
+  'medium_term',
+  'long_term',
+];
+
 export interface SpotifyTrack {
   rank: number;
   name: string;

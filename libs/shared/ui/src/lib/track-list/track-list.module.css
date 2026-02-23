@@ -66,3 +66,17 @@
 .row:hover .link {
   color: var(--color-accent);
 }
+
+.row:hover [data-glow-color] {
+  box-shadow: 0 0 12px color-mix(in srgb, var(--glow-color) 50%, transparent);
+}
+
+.row:hover [data-glow-color] > [aria-hidden='true'] {
+  opacity: 0.5;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .row:hover [data-glow-color] > [aria-hidden='true'] {
+    opacity: 0;
+  }
+}

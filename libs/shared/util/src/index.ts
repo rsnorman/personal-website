@@ -23,3 +23,8 @@ export type {
   SpotifyTopTracksResponse,
   SpotifyTopArtistsResponse,
 } from './lib/content/spotify';
+
+export { VALID_RANGES } from './lib/content/spotify';
+
+export { CATEGORIES } from './lib/content/media';
+export type { MediaCategory } from './lib/content/media';

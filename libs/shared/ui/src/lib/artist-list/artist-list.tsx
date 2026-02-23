@@ -16,7 +16,7 @@ export function ArtistList({ artists }: ArtistListProps) {
           target="_blank"
           rel="noopener noreferrer"
           className={styles.row}
-          aria-label={`${artist.name}`}
+          aria-label={`${artist.name} on Spotify (opens in new tab)`}
         >
           <span className={styles.rank}>
             {String(artist.rank).padStart(2, '0')}

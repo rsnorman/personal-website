@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import styles from './media-image.module.css';
 
 export interface MediaImageProps {
@@ -18,13 +19,21 @@ export function MediaImage({
   return (
     <div
       className={`${styles.wrapper} ${className ?? ''}`}
+      data-glow-color={dominantColor}
       style={
         {
           '--glow-color': dominantColor,
         } as React.CSSProperties
       }
     >
-      <img src={src} alt={alt} className={styles.image} loading="lazy" />
+      <Image
+        src={src}
+        alt={alt}
+        width={48}
+        height={48}
+        className={styles.image}
+        loading="lazy"
+      />
       <div
         className={styles.glitchR}
         style={{ backgroundImage: `url(${src})` }}

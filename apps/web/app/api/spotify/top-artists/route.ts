@@ -3,15 +3,25 @@ import type {
   SpotifyTimeRange,
   SpotifyTopArtistsResponse,
 } from '@personal-website/shared-util';
+import { VALID_RANGES } from '@personal-website/shared-util';
 import { getAccessToken } from '../lib/auth';
 import { getCached, setCache } from '../lib/cache';
 import { extractDominantColor } from '../lib/color';
 
-const VALID_RANGES: SpotifyTimeRange[] = [
-  'short_term',
-  'medium_term',
-  'long_term',
-];
+interface RawSpotifyImage {
+  url: string;
+  width: number;
+  height: number;
+}
+
+interface RawSpotifyArtist {
+  name: string;
+  genres: string[];
+  images: RawSpotifyImage[];
+  external_urls: {
+    spotify: string;
+  };
+}
 
 export async function GET(request: NextRequest) {
   const range = (request.nextUrl.searchParams.get('range') ??
@@ -48,11 +58,9 @@ export async function GET(request: NextRequest) {
     const data = await response.json();
 
     const artists = await Promise.all(
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      data.items.map(async (item: any, index: number) => {
+      data.items.map(async (item: RawSpotifyArtist, index: number) => {
         const image =
-          item.images.find((img: { width: number }) => img.width === 300)
-            ?.url ??
+          item.images.find((img) => img.width === 300)?.url ??
           item.images[1]?.url ??
           item.images[0]?.url ??
           '';
@@ -80,7 +88,20 @@ export async function GET(request: NextRequest) {
 
     setCache(cacheKey, result);
     return NextResponse.json(result);
-  } catch {
+  } catch (err) {
+    const message = err instanceof Error ? err.message : '';
+    if (message === 'Missing Spotify environment variables') {
+      return NextResponse.json(
+        { error: 'Spotify integration is not configured' },
+        { status: 503 }
+      );
+    }
+    if (message === 'Spotify authentication failed') {
+      return NextResponse.json(
+        { error: 'Spotify authentication failed' },
+        { status: 401 }
+      );
+    }
     return NextResponse.json(
       { error: 'Failed to fetch Spotify data' },
       { status: 500 }

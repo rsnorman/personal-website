@@ -1,9 +1,10 @@
 'use client';
 
 import { useEffect, useRef, useCallback } from 'react';
+import { useReducedMotion } from 'motion/react';
 import styles from './row-glitch.module.css';
 
-interface UseRowGlitchOptions {
+export interface UseRowGlitchOptions {
   minInterval?: number;
   maxInterval?: number;
 }
@@ -42,19 +43,16 @@ export function useRowGlitch({
     }, delay);
   }, [minInterval, maxInterval, glitchRandomRow]);
 
+  const shouldReduceMotion = useReducedMotion();
+
   useEffect(() => {
-    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-    prefersReducedMotion.current = mq.matches;
+    prefersReducedMotion.current = !!shouldReduceMotion;
+  }, [shouldReduceMotion]);
 
-    const handler = (e: MediaQueryListEvent) => {
-      prefersReducedMotion.current = e.matches;
-    };
-    mq.addEventListener('change', handler);
-
+  useEffect(() => {
     scheduleNext();
 
     return () => {
-      mq.removeEventListener('change', handler);
       if (timerRef.current) clearTimeout(timerRef.current);
     };
   }, [scheduleNext]);
